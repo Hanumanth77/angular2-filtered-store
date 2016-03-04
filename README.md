@@ -10,6 +10,7 @@ This is a fork from [Angular2 Webpack Starter](https://github.com/AngularClass/a
 
 ### Usage example
 
+##### Business logic
 ```
 class FrameworkGrid extends Grid<FrameworkModel, IColumn> {
 
@@ -44,6 +45,7 @@ class FrameworkGrid extends Grid<FrameworkModel, IColumn> {
 }
 ```
 
+##### Template
 ```
 <table>
 	<tr>
