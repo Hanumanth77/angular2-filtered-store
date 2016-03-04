@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from 'angular2/core';
 
 import {IColumn} from './column/IColumn';
-import {IterableDiffers} from "angular2/core";
-import {IStore} from "../../../data/store/IStore";
-import {IModel} from "../../../data/model/IModel";
-import {ICollection} from "../../../data/collection/ICollection";
+import {IStore} from "../../data/store/IStore";
+import {IModel} from "../../data/model/IModel";
+import {ICollection} from "../../data/collection/ICollection";
 import {GridComponent} from "./GridComponent";
 
 @Component(new GridComponent())
