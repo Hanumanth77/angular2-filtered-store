@@ -71,3 +71,8 @@ Angular2	4096	01/01/2015
 
 ...
 ```
+
+### Sources
+
+[Common package](src/common)  
+[Main view](src/app/home/view)
