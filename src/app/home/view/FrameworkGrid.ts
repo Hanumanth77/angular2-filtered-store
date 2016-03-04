@@ -17,10 +17,10 @@ export class FrameworkGrid extends Grid<FrameworkModel, IColumn> {
     constructor() {
         super();
         this.setColumns(this.getColumns())
-            .setStore(this.getProductsKeysStore())
+            .setStore(this.getFrameworksStore())
     }
 
-    private getProductsKeysStore():IStore<FrameworkModel> {
+    private getFrameworksStore():IStore<FrameworkModel> {
         let firstBean = new FrameworkModel("Angular1", 1, new Date('2009/01/01')),
             secondBean = new FrameworkModel("Angular2", 1, new Date('2015/01/01'));
 
