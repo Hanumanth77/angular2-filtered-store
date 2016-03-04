@@ -3,6 +3,7 @@ import {FORM_DIRECTIVES} from 'angular2/common';
 
 import {Title} from './services/title';
 import {XLarge} from './directives/x-large';
+import {FrameworkGrid} from "./view/FrameworkGrid";
 
 @Component({
   // The selector is what angular internally uses
@@ -17,7 +18,8 @@ import {XLarge} from './directives/x-large';
   // Doing so will allow Angular to attach our behavior to an element
   directives: [
     ...FORM_DIRECTIVES,
-    XLarge
+    XLarge,
+    FrameworkGrid
   ],
   // We need to tell Angular's compiler which custom pipes are in our template.
   pipes: [ ],
