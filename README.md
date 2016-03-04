@@ -43,3 +43,14 @@ class FrameworkGrid extends Grid<FrameworkModel, IColumn> {
     }
 }
 ```
+
+```
+<table>
+	<tr>
+		<td *ngFor="#col of columns">{{col.getDescription()}}</td>
+	</tr>
+	<tr *ngFor="#model of store">
+		<td *ngFor="#col of columns">{{col.getModelValue(model)}}</td>
+	</tr>
+</table>
+```
