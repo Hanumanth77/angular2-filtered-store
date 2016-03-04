@@ -56,3 +56,18 @@ class FrameworkGrid extends Grid<FrameworkModel, IColumn> {
 	</tr>
 </table>
 ```
+
+### An example of the work program
+```
+Angular2 Iterator preview
+
+Angular1	11	01/01/2009
+Angular2	1024	01/01/2015
+
+...
+
+Angular1	13	01/01/2009
+Angular2	4096	01/01/2015
+
+...
+```
