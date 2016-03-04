@@ -21,15 +21,25 @@ export class FrameworkGrid extends Grid<FrameworkModel, IColumn> {
     }
 
     private getProductsKeysStore():IStore<FrameworkModel> {
-        return new ArrayStore<FrameworkModel>()
-            .add(new FrameworkModel("Angular 1", "AngularJS (commonly referred to as Angular or Angular.js is an open-source web application framework mainly maintained by Google", new Date('2009/01/01')))
-            .add(new FrameworkModel("Angular 2", "AngularJS (commonly referred to as Angular or Angular.js is an open-source web application framework mainly maintained by Google", new Date('2015/01/01')));
+        let firstBean = new FrameworkModel("Angular1", 1, new Date('2009/01/01')),
+            secondBean = new FrameworkModel("Angular2", 1, new Date('2015/01/01'));
+
+        let store:IStore<FrameworkModel> = new ArrayStore<FrameworkModel>()
+            .add(firstBean)
+            .add(secondBean);
+
+        setInterval(function () {
+            firstBean.counter = firstBean.counter + 1;
+            secondBean.counter = secondBean.counter * 2;
+        }, 1000);
+
+        return store;
     }
 
     private getColumns():ICollection<IColumn> {
         return new ArrayList<IColumn>()
             .add(new Column().setName("name"))
-            .add(new Column().setName("description"))
+            .add(new Column().setName("counter"))
             .add(new DateColumn().setName("released"));
     }
 }
