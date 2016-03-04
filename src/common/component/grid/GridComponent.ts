@@ -1,5 +1,5 @@
 export class GridComponent {
 
     selector = 'grid';
-    templateUrl = './common/components/angular/grid/grid.html';
+    templateUrl = './common/component/grid/grid.html';
 }
