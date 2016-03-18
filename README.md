@@ -1,6 +1,6 @@
 # Angular2 Filtered Store
 
-1. Angular2 allows iterating over native Array(ES5), native Set(ES6) and native Map(ES6).  
+1. Angular2 allows iterating over the native Array(ES5), the native Set(ES6) and the native Map(ES6).
 2. But what if we want to iterate over an arbitrary data structures (for example ArrayList/LinkedList/TreeSet - analogue Java)?
 3. Nowhere nobody explains how it can be done!
 4. Deep analysis of the Angular2 source code allows understanding how we can do that.
