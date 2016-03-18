@@ -6,6 +6,17 @@ import * as browser from 'angular2/platform/browser';
 import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
 import {HTTP_PROVIDERS} from 'angular2/http';
 
+import {ProxyWriter} from "./common/data/proxy/writer/ProxyWriter";
+import {DataProvider} from "./app/home/data/api/DataProvider";
+
+/*
+ * Application Data Providers
+ */
+const DATA_PROVIDERS = [
+  DataProvider,
+  ProxyWriter
+];
+
 /*
  * App Environment Providers
  * providers that only live in certain environment
@@ -34,6 +45,7 @@ export function main() {
     ...ENV_PROVIDERS,
     ...HTTP_PROVIDERS,
     ...ROUTER_PROVIDERS,
+    ...DATA_PROVIDERS,
     ngCore.provide(LocationStrategy, { useClass: HashLocationStrategy })
   ])
   .catch(err => console.error(err));
