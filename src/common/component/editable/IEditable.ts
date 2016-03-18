@@ -1,5 +1,5 @@
-import {IModel} from "../../../data/model/IModel";
 import {IColumn} from "../grid/column/IColumn";
+import {IModel} from "../../data/model/IModel";
 
 export interface IEditable {
 

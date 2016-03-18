@@ -1,13 +1,13 @@
 import {Component, Input, OnInit} from 'angular2/core';
 
 import {IColumn} from './column/IColumn';
-import {IStore} from "../../../data/store/IStore";
-import {IModel} from "../../../data/model/IModel";
-import {ICollection} from "../../../data/collection/ICollection";
 import {GridComponent} from "./GridComponent";
 import {IEditable} from "../editable/IEditable";
-import {IPredicate} from "../../../data/predicate/IPredicate";
-import {AlwaysTruePredicate} from "../../../data/predicate/AlwaysTruePredicate";
+import {IModel} from "../../data/model/IModel";
+import {ICollection} from "../../data/collection/ICollection";
+import {IStore} from "../../data/store/IStore";
+import {IPredicate} from "../../data/predicate/IPredicate";
+import {AlwaysTruePredicate} from "../../data/predicate/AlwaysTruePredicate";
 
 @Component(new GridComponent([]))
 export class Grid<T extends IModel, E extends IColumn> implements IEditable, OnInit {

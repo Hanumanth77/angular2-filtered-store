@@ -1,8 +1,8 @@
 import {Injectable} from "angular2/core";
 
-import {IModel} from "../../../data/model/IModel";
 import {IColumn} from "../grid/column/IColumn";
 import {IEditable} from "./IEditable";
+import {IModel} from "../../data/model/IModel";
 
 @Injectable()
 export class Editable implements IEditable {
