@@ -6,7 +6,7 @@ import {FilterPipe} from "./pipe/FilterPipe";
 export class GridComponent {
 
     selector:string = 'grid';
-    templateUrl:string = './common/component/grid/grid.html';
+    template:string = require('./grid.html');
     pipes = [FilterPipe];
 
     constructor(public providers:Array<any>) {
