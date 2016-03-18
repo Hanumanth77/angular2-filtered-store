@@ -1,4 +1,4 @@
-# Angular2 Iterator preview
+# Angular2 Filtered Store
 
 This is a fork from [Angular2 Webpack Starter](https://github.com/AngularClass/angular2-webpack-starter) project.
 
@@ -10,37 +10,36 @@ This is a fork from [Angular2 Webpack Starter](https://github.com/AngularClass/a
 
 ### Usage example
 
-##### Business logic
+##### Grids
 ```
-class FrameworkGrid extends Grid<FrameworkModel, IColumn> {
+@Component(new FrameworkGridComponent())
+export class FrameworkGrid extends DefaultFrameworkGrid<FrameworkStore> {
 
-    constructor() {
-        super();
-        this.setColumns(this.getColumns())
-            .setStore(this.getFrameworksStore())
+    protected storeSize:boolean = true;
+
+    constructor(protected store:FrameworkStore, protected editable:Editable) {
+        super(store, editable);
     }
+}
+```
 
-    private getFrameworksStore():IStore<FrameworkModel> {
-        let firstBean = new FrameworkModel("Angular1", 1, new Date('2009/01/01')),
-            secondBean = new FrameworkModel("Angular2", 1, new Date('2015/01/01'));
+```
+class FrameworkFilteredPredicate implements IPredicate<FrameworkModel> {
 
-        let store:IStore<FrameworkModel> = new ArrayStore<FrameworkModel>()
-            .add(firstBean)
-            .add(secondBean);
-
-        setInterval(function () {
-            firstBean.counter = firstBean.counter + 1;
-            secondBean.counter = secondBean.counter * 2;
-        }, 1000);
-
-        return store;
+    public apply(machine:FrameworkModel):boolean {
+        return machine.getName().indexOf('Ext') > -1;
     }
+}
 
-    private getColumns():ICollection<IColumn> {
-        return new ArrayList<IColumn>()
-            .add(new Column().setName("name"))
-            .add(new Column().setName("counter"))
-            .add(new DateColumn().setName("released"));
+const FRAMEWORK_FILTERED_PREDICATE:IPredicate<FrameworkModel> = new FrameworkFilteredPredicate();
+
+@Component(new FrameworkFilteredGridComponent())
+export class FrameworkFilteredGrid extends DefaultFrameworkGrid<FrameworkStore> {
+
+    protected filterPredicate:IPredicate<FrameworkModel> = FRAMEWORK_FILTERED_PREDICATE;
+
+    constructor(protected store:FrameworkStore, protected editable:Editable) {
+        super(store, editable);
     }
 }
 ```
@@ -51,10 +50,18 @@ class FrameworkGrid extends Grid<FrameworkModel, IColumn> {
 	<tr>
 		<td *ngFor="#col of columns">{{col.getDescription()}}</td>
 	</tr>
-	<tr *ngFor="#model of store">
-		<td *ngFor="#col of columns">{{col.getModelValue(model)}}</td>
+  <tr *ngFor="#model of store | FilterPipe:filterPredicate" (click)="onRowClick($event, model)">
+		<td *ngFor="#col of columns" [ngSwitch]="col.getColumnType()" (click)="onClick($event, col, model)">
+			<div *ngSwitchWhen="'checkbox'">
+				<input type="checkbox" checked="{{col.getModelValue(model)}}" (change)="onModifyModel($event, col, model)"/>
+			</div>
+			<div *ngSwitchDefault>
+				{{col.getModelValue(model)}}
+			</div>
+		</td>
 	</tr>
 </table>
+<div *ngIf="storeSize"><b>Store size:</b> {{store.getSize()}}</div>
 ```
 
 ### An example of the work program
