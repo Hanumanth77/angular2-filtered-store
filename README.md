@@ -10,7 +10,7 @@ This is a fork from [Angular2 Webpack Starter](https://github.com/AngularClass/a
 
 ### Usage example
 
-##### Grids
+##### Common grid
 ```
 @Component(new FrameworkGridComponent())
 export class FrameworkGrid extends DefaultFrameworkGrid<FrameworkStore> {
@@ -23,6 +23,7 @@ export class FrameworkGrid extends DefaultFrameworkGrid<FrameworkStore> {
 }
 ```
 
+##### Filtered grid
 ```
 class FrameworkFilteredPredicate implements IPredicate<FrameworkModel> {
 
@@ -65,21 +66,25 @@ export class FrameworkFilteredGrid extends DefaultFrameworkGrid<FrameworkStore> 
 ```
 
 ### An example of the work program
-```
-Angular2 Iterator preview
 
-Angular1	11	01/01/2009
-Angular2	1024	01/01/2015
+##### State #1
+![State #1](demo/step1.png)
 
-...
+##### State #2
+![State #2](demo/step2.png)
 
-Angular1	13	01/01/2009
-Angular2	4096	01/01/2015
+##### State #3
+![State #3](demo/step3.png)
 
-...
-```
+##### State #4
+![State #4](demo/step4.png)
 
 ### Sources
 
-[Common package](src/common)  
-[Main view](src/app/home/view)
+##### Api logic
+[Common package](src/common)
+
+##### App logic
+[View](src/app/home/view)
+[Model](src/app/home/model)
+[Data](src/app/home/data)  
