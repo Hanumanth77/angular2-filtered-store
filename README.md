@@ -45,6 +45,32 @@ export class FrameworkFilteredGrid extends DefaultFrameworkGrid<FrameworkStore> 
 }
 ```
 
+##### Usage
+```
+  constructor(protected frameworkStore:FrameworkStore, protected dataProvider:DataProvider, protected proxyWriter:ProxyWriter) {
+
+    frameworkStore.setProxyWriter(proxyWriter);
+
+    this.dataProvider.getFrameworks().then((models:Array<FrameworkModel>) => {
+
+      this.frameworkStore.addAll(new ArrayList<FrameworkModel>(models));
+      this.makeModel("Angular 2");
+
+      setTimeout(() => {
+        this.makeModel("ExtJS6");
+      }, 4000);
+    });
+  }
+
+  private makeModel(frameworkName) {
+    let framework:FrameworkModel = new FrameworkModel(frameworkName, new Date());
+    framework.phantom(true);
+
+    this.frameworkStore.add(framework);
+    this.frameworkStore.save();
+  }
+```
+
 ##### Template
 ```
 <table>
@@ -87,4 +113,4 @@ export class FrameworkFilteredGrid extends DefaultFrameworkGrid<FrameworkStore> 
 ##### App logic
 [View](src/app/home/view)
 [Model](src/app/home/model)
-[Data](src/app/home/data)  
+[Data](src/app/home/data)
