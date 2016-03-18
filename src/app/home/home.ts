@@ -9,6 +9,8 @@ import {ProxyWriter} from "../../common/data/proxy/writer/ProxyWriter";
 import {DataProvider} from "./data/api/DataProvider";
 import {ArrayList} from "../../common/data/collection/ArrayList";
 import {FrameworkModel} from "./model/FrameworkModel";
+import {FrameworkFilteredGrid} from "./view/FrameworkFilteredGrid";
+import {IModel} from "../../common/data/model/IModel";
 
 @Component({
   // The selector is what angular internally uses
@@ -24,7 +26,8 @@ import {FrameworkModel} from "./model/FrameworkModel";
   directives: [
     ...FORM_DIRECTIVES,
     XLarge,
-    FrameworkGrid
+    FrameworkGrid,
+    FrameworkFilteredGrid
   ],
   // We need to tell Angular's compiler which custom pipes are in our template.
   pipes: [ ],
@@ -35,41 +38,32 @@ import {FrameworkModel} from "./model/FrameworkModel";
 })
 export class Home {
   // Set our default values
-  data = { value: '' };
-  // TypeScript public modifiers
-  constructor(public title: Title, protected frameworkStore:FrameworkStore, protected dataProvider:DataProvider, protected proxyWriter:ProxyWriter) {
+  data = {value: ''};
+
+  constructor(protected frameworkStore:FrameworkStore, protected dataProvider:DataProvider, protected proxyWriter:ProxyWriter) {
 
     frameworkStore.setProxyWriter(proxyWriter);
 
     this.dataProvider.getFrameworks().then((models:Array<FrameworkModel>) => {
+
       this.frameworkStore.addAll(new ArrayList<FrameworkModel>(models));
-
-      console.debug('[$homeCtrl][load machines]', this.frameworkStore.getSize());
-
-      let machine:FrameworkModel = new FrameworkModel("Angular 2", 0, new Date());
-      machine.phantom(true);
-
-      this.frameworkStore.add(machine);
-
-      console.log(this.frameworkStore.getDirtyChanges());
-
-      this.frameworkStore.save();
+      this.makeModel("Angular 2");
 
       setTimeout(() => {
-        let machine:FrameworkModel = new FrameworkModel("Angular 3", 0, new Date());
-        machine.phantom(true);
-
-        this.frameworkStore.add(machine);
-
-        console.log('ALL SIZE: ', this.frameworkStore.getSize());
-
-        this.frameworkStore.save();
-      }, 5000);
+        this.makeModel("ExtJS6");
+      }, 4000);
     });
+  }
+
+  private makeModel(frameworkName) {
+    let framework:FrameworkModel = new FrameworkModel(frameworkName, new Date());
+    framework.phantom(true);
+
+    this.frameworkStore.add(framework);
+    this.frameworkStore.save();
   }
 
   ngOnInit() {
     console.log('hello `Home` component');
-    // this.title.getData().subscribe(data => this.data = data);
   }
 }

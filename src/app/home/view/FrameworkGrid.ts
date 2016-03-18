@@ -8,6 +8,8 @@ import {Editable} from "../../../common/component/editable/Editable";
 @Component(new FrameworkGridComponent())
 export class FrameworkGrid extends DefaultFrameworkGrid<FrameworkStore> {
 
+    protected storeSize:boolean = true;
+
     constructor(protected store:FrameworkStore, protected editable:Editable) {
         super(store, editable);
     }

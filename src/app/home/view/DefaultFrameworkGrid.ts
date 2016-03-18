@@ -19,9 +19,8 @@ export class DefaultFrameworkGrid<S extends ArrayStore<FrameworkModel>> extends 
 
     private makeColumns():ICollection<IColumn> {
         return new ArrayList<IColumn>()
-            .add(new Column().setName("name"))
-            .add(new Column().setName("counter"))
-            .add(new DateColumn().setName("released"))
-            .add(new Column().setName("_phantom").setDescription("phantom"));
+            .add(new Column().setName("name").setDescription("Framework name"))
+            .add(new DateColumn().setName("released").setDescription("Release date"))
+            .add(new Column().setName("_phantom").setDescription("New model"));
     }
 }
