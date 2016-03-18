@@ -2,7 +2,14 @@
 	<tr>
 		<td *ngFor="#col of columns">{{col.getDescription()}}</td>
 	</tr>
-	<tr *ngFor="#model of store">
-		<td *ngFor="#col of columns">{{col.getModelValue(model)}}</td>
+  <tr *ngFor="#model of store | FilterPipe:filterPredicate" (click)="onRowClick($event, model)">
+		<td *ngFor="#col of columns" [ngSwitch]="col.getColumnType()" (click)="onClick($event, col, model)">
+			<div *ngSwitchWhen="'checkbox'">
+				<input type="checkbox" checked="{{col.getModelValue(model)}}" (change)="onModifyModel($event, col, model)"/>
+			</div>
+			<div *ngSwitchDefault>
+				{{col.getModelValue(model)}}
+			</div>
+		</td>
 	</tr>
 </table>
