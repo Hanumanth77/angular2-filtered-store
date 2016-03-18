@@ -9,6 +9,7 @@ import {ArrayStore} from "../../../common/data/store/ArrayStore";
 import {ICollection} from "../../../common/data/collection/ICollection";
 import {ArrayList} from "../../../common/data/collection/ArrayList";
 import {Editable} from "../../../common/component/editable/Editable";
+import {CheckboxColumn} from "../../../common/component/grid/column/CheckboxColumn";
 
 export class DefaultFrameworkGrid<S extends ArrayStore<FrameworkModel>> extends Grid<FrameworkModel, IColumn> {
 
@@ -19,6 +20,7 @@ export class DefaultFrameworkGrid<S extends ArrayStore<FrameworkModel>> extends 
 
     private makeColumns():ICollection<IColumn> {
         return new ArrayList<IColumn>()
+            .add(new CheckboxColumn().setName("checked").setDescription(""))
             .add(new Column().setName("name").setDescription("Framework name"))
             .add(new DateColumn().setName("released").setDescription("Release date"))
             .add(new Column().setName("_phantom").setDescription("New model"));

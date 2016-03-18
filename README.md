@@ -105,6 +105,9 @@ export class FrameworkFilteredGrid extends DefaultFrameworkGrid<FrameworkStore> 
 ##### State #4
 ![State #4](demo/step4.png)
 
+##### State #5
+![State #5](demo/step5.png)
+
 ### Sources
 
 ##### Api logic

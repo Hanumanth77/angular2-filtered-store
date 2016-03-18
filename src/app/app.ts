@@ -33,11 +33,6 @@ import {Home} from './home/home';
     }
   `],
   template: `
-    <header>
-      <nav>
-        <h1>Angular2 Filtered Store</h1>
-      </nav>
-    </header>
     <main>
       <router-outlet></router-outlet>
     </main>
