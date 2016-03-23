@@ -2,7 +2,7 @@ import {IComponent} from "../../component/IComponent";
 import {IColumn} from "./IColumn";
 import {IRenderer} from "../renderer/IRenderer";
 import {DefaultRenderer} from "../renderer/DefaultRenderer";
-import {IModel} from "../../../data/model/IModel";
+import {IModel} from "../../../../data/model/IModel";
 
 export class Column implements IColumn, IComponent {
 

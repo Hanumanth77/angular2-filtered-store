@@ -1,7 +1,17 @@
 <table>
-	<tr>
-		<td *ngFor="#col of columns">{{col.getDescription()}}</td>
-	</tr>
+  <thead>
+  <tr>
+    <th *ngFor="#col of columns" [ngSwitch]="col.getColumnType()">
+	    <div *ngSwitchWhen="'checkbox'">
+		    <input type="checkbox" (change)="onModifyGroupModel($event, col)"/>
+	    </div>
+	    <div *ngSwitchDefault>
+		    {{col.getDescription()}}
+	    </div>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
   <tr *ngFor="#model of store | FilterPipe:filterPredicate" (click)="onRowClick($event, model)">
 		<td *ngFor="#col of columns" [ngSwitch]="col.getColumnType()" (click)="onClick($event, col, model)">
 			<div *ngSwitchWhen="'checkbox'">
@@ -12,5 +22,6 @@
 			</div>
 		</td>
 	</tr>
+  </tbody>
 </table>
 <div *ngIf="storeSize"><b>Store size:</b> {{store.getSize()}}</div>
