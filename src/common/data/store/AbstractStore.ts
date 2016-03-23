@@ -3,17 +3,20 @@ import {getSymbolIterator} from "angular2/src/facade/lang";
 import {IStore} from "./IStore";
 import {IModel} from "../model/IModel";
 import {ICollection} from "../collection/ICollection";
-import {IProxyWriter} from "../proxy/writer/IProxyWriter";
 import {IIterable} from "../collection/IIterable";
 import {IPredicate} from "../predicate/IPredicate";
 import {PhantomPredicate} from "../predicate/PhantomPredicate";
+import {DirtyPredicate} from "../predicate/DirtyPredicate";
+import {Predicates} from "../predicate/Predicates";
+import {IProxy} from "../proxy/IProxy";
 
-const PHANTOM_PREDICATE = new PhantomPredicate();
+const PHANTOM_PREDICATE = new PhantomPredicate(),
+    DIRTY_PREDICATE = new DirtyPredicate();
 
 export abstract class AbstractStore<T extends IModel> implements IStore<T> {
 
     protected _collection:ICollection<T>;
-    protected _proxyWriter:IProxyWriter<T>;
+    protected _proxy:IProxy<ICollection<T>>;
 
     constructor(_collection:ICollection<T>) {
         this._collection = _collection;
@@ -42,15 +45,15 @@ export abstract class AbstractStore<T extends IModel> implements IStore<T> {
         return this._collection.getSize();
     }
 
-    public read():Promise<T> {
-        throw Error("Unsupported exception");
+    public read(options?:Object):Promise<ICollection<T>> {
+        return this._proxy.read(options);
     }
 
     public save():Promise<ICollection<T>> {
-        let promise:Promise<ICollection<T>> = this._proxyWriter.write(this.getDirtyChanges());
-        promise.then(function (collection:ICollection<T>) {
-            collection.iterate(function (model:T) {
-                model.phantom(false);
+        let promise:Promise<ICollection<T>> = this._proxy.write(this.getDirtyChanges());
+        promise.then((collection:ICollection<T>) => {
+            collection.iterate((model:T) => {
+                model.commit();
             });
         });
         return promise;
@@ -61,7 +64,7 @@ export abstract class AbstractStore<T extends IModel> implements IStore<T> {
 
         this.iterate((model:T) => {
             collectionOfDirtyChanges.add(model);
-        }, PHANTOM_PREDICATE);
+        }, Predicates.or(PHANTOM_PREDICATE, DIRTY_PREDICATE));
 
         return collectionOfDirtyChanges;
     }
@@ -87,9 +90,8 @@ export abstract class AbstractStore<T extends IModel> implements IStore<T> {
         this._collection.clearFilter();
     }
 
-    public setProxyWriter(proxyWriter:IProxyWriter<T>):IStore<T> {
-        this._proxyWriter = proxyWriter;
-        return this;
+    public setProxy(proxy:IProxy<ICollection<T>>) {
+        this._proxy = proxy;
     }
 
     public abstract newInstance():IStore<T>;
